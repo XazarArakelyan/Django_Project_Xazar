@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends 'myshopapp/base.html' %}
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {%block title%}
+            SHOP INDEX
+        {% endblock %}
+    </title>
+</head>
+<body>
+    {% block body %}
+    <h1> Hello World! Shop index </h1>
+    <div>
+        Now time is : {{ time_running}}
+    </div>
+    <div>
+        <ol>
+            {% for name, price in products %}
+            <li> {{ name| upper }} costs {{ price }}$ </li>
+            {% empty %}
+                <span> No product yet</span>
+            {% endfor %}
+        </ol>
+    </div>
+    <div>
+        {% regroup cities by country as country_list %}
+
+        <ul>
+        {% for country in country_list %}
+            <li>{{ country.grouper }}
+            <ul>
+                {% for city in country.list %}
+            <li>{{ city.name }}: Have {{ city.population }} population</li>
+                {% endfor %}
+            </ul>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div> {% lorem 3 p random %} </div>
+    <div>
+        {% comment "Optional note" %}
+            <p> This is a comment </p>
+        {% endcomment %}
+    </div>
+    <div>{% now "jS F Y H:i" %}</div>
+    {% endblock %}
+</body>
+</html>
